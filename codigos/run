@@ -1,0 +1,12 @@
+#!/bin/bash
+
+NAME=`date +date_%Y_%m_%d_time_%H_%M_%S.txt`
+
+python3 $1 > ~/git/magic_juggle/dados/$NAME
+python3 basicparam.py > ~/git/magic_juggle/dados/ultimos_parametros.txt
+
+./gencsv $NAME
+./genparam 
+
+#echo Finalizado!
+#echo Codigos salvos no arquivo: $NAME
