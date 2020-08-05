@@ -1,5 +1,5 @@
 %rodando o script que puxa os ultimos parametros do outro computador
-!powershell -inputformat none -file C:\Users\luanh\OneDrive\Documents\MATLAB\scripts\ultimo_parametro.ps1
+!powershell -inputformat none -file .\scripts\ultimo_parametro.ps1
 
 %abrindo o arquivo csv
 parametros = load('./dados/ultimos_parametros.csv');
