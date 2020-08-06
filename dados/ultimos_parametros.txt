@@ -436,6 +436,6 @@ lighthouse.sweepStd: 0.00039999998989515007
 lighthouse.sweepStd2: 0.0010000000474974513
 Have fetched all parameter values.
 
-Write: pid_attitude.pitch_kd=0.96
-Readback: pid_attitude.pitch_kd=0.9599999785423279
+Write: pid_attitude.pitch_kd=0.19
+Readback: pid_attitude.pitch_kd=0.1899999976158142
 Disconnected from radio://0/80/2M
