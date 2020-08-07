@@ -6,10 +6,12 @@ int main(int argc, char const *argv[])
 {
 	FILE *fp_in, *fp_out;
 	char nome[100], comando[100];
-	int tam;
-	int tempo, bateria, maior_bateria = 0;
-	float x, y, z, pitch, yaw, roll;
-	float vx_ref, vy_ref, yawrate_ref, zdistance_ref;
+	int tam, i;
+
+	int variavel_int;
+	float variavel_float;
+	char variavel_name[70];
+	char caractere;
 
 	//inicio da ganbiarra
 	strcpy(nome,argv[1]);
@@ -23,7 +25,7 @@ int main(int argc, char const *argv[])
 
 	fp_out = fopen("/home/bitcraze/git/magic_juggle/dados/nome.txt","w");
 	fprintf(fp_out, "%s", nome);
-	fclose(fp_out);;
+	fclose(fp_out);
 
 	sprintf(comando,"/home/bitcraze/git/magic_juggle/dados/%s",argv[1]); 
 	fp_in = fopen(comando,"r");
@@ -37,19 +39,65 @@ int main(int argc, char const *argv[])
 	fp_out = fopen(nome,"w");
 	fscanf(fp_in,"Connecting to radio://0/80/2M\nConnected to radio://0/80/2M");
 	//printf("0\n");
-	while(fscanf(fp_in,"%d,{'stateEstimate.x': %f, 'stateEstimate.y': %f, 'stateEstimate.z': %f, 'pm.batteryLevel': %d, 'stabilizer.roll': %f, 'stabilizer.pitch': %f, 'stabilizer.yaw': %f},%f,%f,%f,%f\n", &tempo, &x, &y, &z, &bateria, &roll, &pitch, &yaw, &vx_ref, &vy_ref, &yawrate_ref, &zdistance_ref) != EOF)
+	do
 	{
-		if(bateria > maior_bateria)
-			maior_bateria = bateria;
-		fprintf(fp_out, "%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", tempo, x, y, z, roll, pitch, yaw, vx_ref, vy_ref, yawrate_ref, zdistance_ref);
+		fscanf(fp_in,"%c", &caractere);
+		switch (caractere)
+		{
+			case '\'':
+				i = 0;
+				do
+				{
+					fscanf(fp_in,"%c", &caractere);
+					variavel_name[i++] = caractere;
+				}while(caractere != '\'');
+				variavel_name[--i] = '\0';
+				
+				fprintf(fp_out, "%s,", variavel_name);
+			break;
+
+			case '#':
+				fprintf(fp_out, "\n");
+			break;
+		}
+	}while(caractere != '#');
+	fseek(fp_in,0,SEEK_SET);
+	while(fscanf(fp_in,"%c", &caractere) != EOF)
+	{
+		switch (caractere)
+		{
+			case '\'':
+				i = 0;
+				do
+				{
+					fscanf(fp_in,"%c", &caractere);
+					variavel_name[i++] = caractere;
+				}while(caractere != '\'');
+				variavel_name[--i] = '\0';
+				
+				if(strcmp(variavel_name,"tempo")==0)
+				{
+					fscanf(fp_in,": %d", &variavel_int);
+					fprintf(fp_out, "%d,", variavel_int);
+				}else if(variavel_name[i-1] == 'Z')
+				{
+					fscanf(fp_in,": %d", &variavel_int);
+					fprintf(fp_out, "%d,", variavel_int);
+				}else
+				{
+					fscanf(fp_in,": %f", &variavel_float);
+					fprintf(fp_out, "%f,", variavel_float);
+				}
+			break;
+
+			case '#':
+				fprintf(fp_out, "\n");
+			break;
+		}
 	}
 
 	fclose(fp_in);
 	fclose(fp_out);
-
-	printf("Bateria: %d%%\n", maior_bateria);
-
-
 
 	return 0;
 }
