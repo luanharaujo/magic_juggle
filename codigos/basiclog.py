@@ -147,7 +147,7 @@ class LoggingExample:
             print('Could not add Stabilizer log config, bad configuration.')
 
         # Start a timer to disconnect in 10s
-        t = Timer(10, self._cf.close_link)
+        t = Timer(2, self._cf.close_link)
         t.start()
 
     def _stab_log_error(self, logconf, msg):
@@ -156,7 +156,7 @@ class LoggingExample:
 
     def _stab_log_data(self, timestamp, data, logconf):
         """Callback froma the log API when data arrives"""
-        print('%d,%s' % (timestamp, data))
+        print('\'tempo\': %d,%s#' % (timestamp, data))
 
     def _connection_failed(self, link_uri, msg):
         """Callback when connection initial connection fails (i.e no Crazyflie
