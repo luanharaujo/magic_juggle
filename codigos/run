@@ -7,7 +7,9 @@ if [ "$#" -eq 1 ]; then
 fi
 
 python3 basicparam.py > ~/git/magic_juggle/dados/ultimos_parametros.txt
-./genparam 
+./genparam
+echo checando a bateria
+python3 batery_check.py
 
 #echo Finalizado!
 #echo Codigos salvos no arquivo: $NAME

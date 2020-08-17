@@ -54,15 +54,8 @@ if __name__ == '__main__':
     else:
         lg_stab = LogConfig(name='Stabilizer', period_in_ms=10)
 
-        lg_stab.add_variable('stateEstimate.x', 'float')
-        lg_stab.add_variable('stateEstimate.y', 'float')
-        lg_stab.add_variable('stateEstimate.z', 'float')
-
         lg_stab.add_variable('pm.batteryLevel', 'uint8_t')
 
-        lg_stab.add_variable('stabilizer.roll', 'float')
-        lg_stab.add_variable('stabilizer.pitch', 'float')
-        lg_stab.add_variable('stabilizer.yaw', 'float')
         i = 0
         
         #print("antes")
@@ -76,61 +69,16 @@ if __name__ == '__main__':
             # Note: it is possible to add more than one log config using an
             # array.
             #with SyncLogger(scf, [lg_stab, other_conf]) as logger:
-            cf.param.set_value('kalman.resetEstimation', '1')
-            time.sleep(0.1)
-            cf.param.set_value('kalman.resetEstimation', '0')
-            time.sleep(2)
             with SyncLogger(scf, lg_stab) as logger:
                 #print("depois")
-                startTime = time.time()
 
                 for log_entry in logger:
                     timestamp = log_entry[0]
                     data = log_entry[1]
                     #logconf_name = log_entry[2]
 
-                    nowTime = time.time()
-                    if nowTime < startTime + 2:
-                        vx = 0
-                        vy = 0
-                        yawrate = 0
-                        zdistance = 0.4
-                    elif nowTime < startTime + 3:
-                        if zerou == 0:
-                            cf.param.set_value('kalman.resetEstimation', '1')
-                            cf.param.set_value('kalman.resetEstimation', '0')
-                            zerou = 1
-                        
-                    elif nowTime < startTime + 6:
-                        vx = 0
-                        vy = 0.15
-                        yawrate = 0
-                        zdistance = 0.4
-                    elif nowTime < startTime + 9:
-                        vx = 0.15
-                        vy = 0
-                        yawrate = 0
-                        zdistance = 0.4
-                    elif nowTime < startTime + 11:
-                        vx = 0
-                        vy = 0
-                        yawrate = 0
-                        zdistance = 0.4
-                    elif nowTime < startTime + 11.5:
-                        vx = 0
-                        vy = 0
-                        yawrate = 0
-                        zdistance = 0.2
-                    else:
-                        break
-                    
-                    cf.commander.send_hover_setpoint(vx, vy, yawrate, zdistance) #vx, vy, yawrate, zdistance
-
-                    # if(i<5):
-                    #     i = i + 1
-                    # else:
-                    #     print('%d,%s' % (timestamp, data))
-                    print('%d,%s,%f,%f,%f,%f' % (timestamp, data, vx, vy, yawrate, zdistance))
+                   
+                    print('%s' % (data))
                     
                     # if time.time() > endTime:
-                    #     break
+                    break
