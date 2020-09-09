@@ -60,4 +60,6 @@ r_yaw_kp = parametros(16);
 r_yaw_ki = parametros(17);
 r_yaw_kd = parametros(18);
 
+m=27/1000;%mass (27g naked)
+
 open_system modelo_pid
