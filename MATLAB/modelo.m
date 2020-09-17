@@ -61,5 +61,13 @@ r_yaw_ki = parametros(17);
 r_yaw_kd = parametros(18);
 
 m=27/1000;%mass (27g naked)
+g = 9.89;
+max_thrust = (58*g)/1000;%Newton
+
+%PIDs period
+Tpid_pos = 1/100;
+Tpid_vel = 1/100;
+Tpid_att = 1/500;
+Tpid_rat = 1/500;
 
 open_system modelo_pid
