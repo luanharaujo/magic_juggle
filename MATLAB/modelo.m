@@ -13,7 +13,8 @@ yKp = parametros(22);
 yKi = parametros(23);
 yKd = parametros(24);
 
-xyVelMax = parametros(31);
+xyVelMax = parametros(31);%a fazer LUAN!!!!!!!!!!!!!!!!!!!!
+%existe limitador na saida do controlador implementado no firmware?
 
 zKp = parametros(25);
 zKi = parametros(26);
@@ -61,7 +62,8 @@ r_yaw_ki = parametros(17);
 r_yaw_kd = parametros(18);
 
 m=27/1000;%mass (27g naked)
-g = 9.89;
+g = 9.89;%pra fazer LUAN!!!!!!!!!!!!!!!!!
+%pegar gravidade do simulink
 max_thrust = (58*g)/1000;%Newton
 
 %PIDs period
