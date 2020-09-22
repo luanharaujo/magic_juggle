@@ -13,16 +13,17 @@ yKp = parametros(22);
 yKi = parametros(23);
 yKd = parametros(24);
 
-xyVelMax = parametros(31);%a fazer LUAN!!!!!!!!!!!!!!!!!!!!
-%existe limitador na saida do controlador implementado no firmware?
+xyVelMax = parametros(31);
 
 zKp = parametros(25);
 zKi = parametros(26);
 zKd = parametros(27);
 
 zVelMax = parametros(32);
+if zVelMax < 0.5 %mirroring the formware code
+    zVelMax = 0.5;
+end
 
-%velCtlPID
 vxKp = parametros(33);
 vxKi = parametros(34);
 vxKd = parametros(35);
@@ -60,6 +61,13 @@ r_pitch_kd = parametros(15);
 r_yaw_kp = parametros(16);
 r_yaw_ki = parametros(17);
 r_yaw_kd = parametros(18);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Arrumar a posição depois
+rpLimit = parametros(42);
+thrustBase = parametros(43);
+thrustMim = parametros(44);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 m=27/1000;%mass (27g naked)
 g = 9.89;%pra fazer LUAN!!!!!!!!!!!!!!!!!
