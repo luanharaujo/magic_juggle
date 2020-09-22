@@ -39,3 +39,6 @@ velCtlPid.vyKd:
 velCtlPid.vzKp:
 velCtlPid.vzKi:
 velCtlPid.vzKd:
+posCtlPid.rpLimit:
+posCtlPid.thrustBase:
+posCtlPid.thrustMin:
