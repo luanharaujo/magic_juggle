@@ -16,6 +16,8 @@ else
     }
 }
 
+echo ip is ${ip}
+
 if($online)#atualizando arquivos apenas se o servidor SSH estiver online
 {
     scp -i ~\`.ssh\id_rsa bitcraze@${ip}:/home/bitcraze/git/magic_juggle/dados/$(ssh  -i ~\`.ssh\id_rsa bitcraze@${ip} ('ls -t /home/bitcraze/git/magic_juggle/dados | head -1')) './dados'
