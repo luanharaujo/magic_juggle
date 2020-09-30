@@ -1,15 +1,23 @@
 #!/bin/bash
 
+
+echo checando a bateria
+python3 batery_check.py
+
+
+
 if [ "$#" -eq 1 ]; then
 	NAME=`date +date_%Y_%m_%d_time_%H_%M_%S.txt`
 	python3 $1 > ~/git/magic_juggle/dados/$NAME
-	./gencsv $NAME	
 fi
 
 python3 basicparam.py > ~/git/magic_juggle/dados/ultimos_parametros.txt
 ./genparam
-echo checando a bateria
-python3 batery_check.py
+sleep 3
+
+if [ "$#" -eq 1 ]; then
+	./gencsv $NAME
+fi
 
 #echo Finalizado!
 #echo Codigos salvos no arquivo: $NAME
