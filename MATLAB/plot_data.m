@@ -1,7 +1,7 @@
 %limpando a bagunça
 %clear
 clc
-%close all
+close all
 
 %rodando o script que busca os dados mais recentes por ssh no outro computador
 !powershell -inputformat none -file .\scripts\ultimo_dado.ps1
@@ -12,13 +12,20 @@ fname = sprintf('./dados/%s',fname);
 
 %extraindo os dados do arquivo csv
 %data = load(fname);
-Tbl = readtable('./dados/teste.csv', 'PreserveVariableNames', true);
+Tbl = readtable(fname, 'PreserveVariableNames', true);
 VarNames = Tbl.Properties.VariableNames;
 numero_variaveis = size(VarNames);
 numero_variaveis = numero_variaveis(2)-1;%subitraindo 1 pois existe uma coluna a mais no arquivo CSV por conta da virgula no fim de cada linha na hora de gerar o arquivo de tamnanho indefinido
 for i = 1:numero_variaveis
  assignin('base',(genvarname(char(VarNames(i)))),table2array(Tbl(:,i)));
 end
+
+plot((tempo - tempo(1))/1000, stateEstimate0x2Ez)
+hold on
+plot((tempo - tempo(1))/1000, ref_z);
+
+set(gcf,'units','normalized','outerposition',[0 0 1 1]);
+
 %plotando caminho do dorne
 % plot3(data(:,2),data(:,3), data(:,4));
 % hold on;
