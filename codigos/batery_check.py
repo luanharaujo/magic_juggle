@@ -62,8 +62,6 @@ if __name__ == '__main__':
         cf = Crazyflie(rw_cache='./cache')
         #print("antes 2")
         with SyncCrazyflie(available[0][0], cf=cf) as scf:
-            cf.param.set_value('ctrlINDI.thrust_threshold', '350.0')
-            cf.param.set_value('stabilizer.controller', '1')
             
             #print("Meio")
             # Note: it is possible to add more than one log config using an
