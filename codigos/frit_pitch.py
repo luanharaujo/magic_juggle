@@ -109,7 +109,7 @@ if __name__ == '__main__':
                     else:
                         cf.commander.send_stop_setpoint()
                         break
-                    cf.commander.send_setpoint(vx,vy,zdistance,yawrate)
+                    cf.commander.send_position_setpoint(vx,vy,zdistance,yawrate)
                     #cf.commander.send_hover_setpoint(vx, vy, yawrate, zdistance) #vx, vy, yawrate, zdistance
 
                     # if(i<5):
