@@ -73,6 +73,8 @@ m=27/1000;%mass (27g naked)
 g = 9.89;%pra fazer LUAN!!!!!!!!!!!!!!!!!
 %pegar gravidade do simulink
 max_thrust = (58*g)/1000;%Newton
+arm_length = 0.0065;%meter
+I = [1.66e-05  0 0; 0 1.66e-05 0; 0 0 2.93e-05];%inertia
 
 %PIDs period
 Tpid_pos = 1/100;

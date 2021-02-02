@@ -2,6 +2,7 @@
 %clear
 clc
 close all
+clear
 
 %rodando o script que busca os dados mais recentes por ssh no outro computador
 !powershell -inputformat none -file .\scripts\ultimo_dado.ps1
@@ -20,13 +21,26 @@ for i = 1:numero_variaveis
  assignin('base',(genvarname(char(VarNames(i)))),table2array(Tbl(:,i)));
 end
 
-plot((tempo - tempo(1))/1000, stateEstimate0x2Ez)
+plot(ref_gy)
 hold on
-plot((tempo - tempo(1))/1000, ref_z);
-
+plot(-stateEstimateZ0x2EratePitch*180/(pi*1000))
 set(gcf,'units','normalized','outerposition',[0 0 1 1]);
 
+
+%plot(ref_gy)
+%hold on
+%plot(stateEstimateZ0x2ErateRoll * 180 / (1000 * pi))
+%plot(controller0x2Er_pitch * 180 / pi)
+%set(gcf,'units','normalized','outerposition',[0 0 1 1]);
+
+% plot((tempo - tempo(1))/1000, stateEstimate0x2Ez)
+% hold on
+% plot((tempo - tempo(1))/1000, ref_z);
+% 
+% set(gcf,'units','normalized','outerposition',[0 0 1 1]);
+
 %plotando caminho do dorne
+
 % plot3(data(:,2),data(:,3), data(:,4));
 % hold on;
 % grid;
