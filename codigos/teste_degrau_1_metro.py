@@ -73,6 +73,10 @@ if __name__ == '__main__':
             # Note: it is possible to add more than one log config using an
             # array.
             #with SyncLogger(scf, [lg_stab, other_conf]) as logger:
+            
+            #cf.param.set_value('pid_attitude.pitch_kp', '1.7344')
+            #cf.param.set_value('pid_attitude.pitch_ki', '0.0445')
+            #cf.param.set_value('pid_attitude.pitch_kd', '0')
             cf.param.set_value('kalman.resetEstimation', '1')
             time.sleep(0.1)
             cf.param.set_value('kalman.resetEstimation', '0')

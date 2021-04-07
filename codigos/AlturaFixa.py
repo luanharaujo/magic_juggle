@@ -49,13 +49,18 @@ if __name__ == '__main__':
 
     with SyncCrazyflie(URI, cf=Crazyflie(rw_cache='./cache')) as scf:
         cf = scf.cf
-
-        #cf.param.set_value('kalman.resetEstimation', '1')
+        cf.param.set_value('pid_attitude.pitch_kp', '1.7344')
+        cf.param.set_value('pid_attitude.pitch_ki', '0.0445')
+        cf.param.set_value('pid_attitude.pitch_kd', '0')
+        cf.param.set_value('pid_attitude.roll_kp', '1.7344')
+        cf.param.set_value('pid_attitude.roll_ki', '0.0445')
+        cf.param.set_value('pid_attitude.roll_kd', '0')
+        cf.param.set_value('kalman.resetEstimation', '1')
         time.sleep(0.1)
-        #cf.param.set_value('kalman.resetEstimation', '0')
+        cf.param.set_value('kalman.resetEstimation', '0')
         time.sleep(2)
 
-        for y in range(30):
+        for y in range(50):
             cf.commander.send_hover_setpoint(0, 0, 0, (0.4))
             time.sleep(0.1)
 

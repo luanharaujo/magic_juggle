@@ -51,6 +51,7 @@ if __name__ == '__main__':
     if len(available) == 0:
         print('No Crazyflies found, cannot run example')
     else:
+        period_in_ms=10
         lg_stab = LogConfig(name='Stabilizer', period_in_ms=10)
 
         lg_stab.add_variable('stateEstimate.x', 'float')
@@ -73,21 +74,24 @@ if __name__ == '__main__':
             # Note: it is possible to add more than one log config using an
             # array.
             #with SyncLogger(scf, [lg_stab, other_conf]) as logger:
+            
+            cf.param.set_value('pid_attitude.pitch_kp', '1.7344')
+            cf.param.set_value('pid_attitude.pitch_ki', '0.0445')
+            cf.param.set_value('pid_attitude.pitch_kd', '0')
             cf.param.set_value('kalman.resetEstimation', '1')
             time.sleep(0.1)
             cf.param.set_value('kalman.resetEstimation', '0')
-            time.sleep(2)
+            time.sleep(0.1)
             
             
             with SyncLogger(scf, lg_stab) as logger:
                 #print("depois")
                 startTime = time.time()
-                step_size = 0.5
-                safe_height = 0.105
-                descent_speed = 0.005
-                tempo_descida = (((step_size-safe_height)/descent_speed)*10)/1000
-                zerou = 0
-                tempo_assentamento = 18
+                
+                cf.commander.send_setpoint(0, 0, 0, 0)
+                pitch = 0
+                roll= 0
+                yawrate = 0
 
                 #cf.param.set_value('kalman.stateX', '0')
                 #cf.param.set_value('kalman.stateY', '0')
@@ -96,27 +100,27 @@ if __name__ == '__main__':
                     timestamp = log_entry[0]
                     data = log_entry[1]
                     #logconf_name = log_entry[2]
-                    nowTime = time.time()
-                    if nowTime < startTime + tempo_assentamento:
-                        vx = 0
-                        vy = 0
-                        yawrate = 90
-                        zdistance = step_size  
-                    elif nowTime < startTime + tempo_assentamento + tempo_descida:
-                        zdistance -= descent_speed
-                    elif nowTime < startTime + tempo_assentamento + tempo_descida + 1:
-                        zdistance = safe_height
+                    nowTime = time.time() - startTime
+                    if nowTime < 1:
+                        pitch = 0
+                    elif nowTime < 7:
+                        pitch = 10
+                    elif nowTime < 13:
+                        pitch = -15
+                    elif nowTime < 19:
+                        pitch = 0
                     else:
                         cf.commander.send_stop_setpoint()
                         break
-                    cf.commander.send_position_setpoint(vx,vy,zdistance,yawrate)
+                    cf.commander.send_setpoint(roll, pitch, yawrate, 20000)
+                    
+                    time.sleep(period_in_ms/1000)
                     #cf.commander.send_hover_setpoint(vx, vy, yawrate, zdistance) #vx, vy, yawrate, zdistance
 
                     # if(i<5):
                     #     i = i + 1
                     # else:
                     #     print('%d,%s' % (timestamp, data))
-                    print('\'tempo\': %d,%s,\'ref_vx\':%f,\'ref_vy\': %f, \'ref_z\': %f, \'ref_yawrate\': %f #' % (timestamp, data, vx, vy, zdistance, yawrate))
-                    
+                    print('\'time\': %d,%s,\'ref_gx\':%f,\'ref_gy\': %f, \'ref_gz\': %f #' % (timestamp, data, roll, pitch, yawrate))
                     # if time.time() > endTime:
                     #     break

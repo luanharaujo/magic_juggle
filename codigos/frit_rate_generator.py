@@ -1,31 +1,13 @@
 # -*- coding: utf-8 -*-
 #
-#     ||          ____  _ __
-#  +------+      / __ )(_) /_______________ _____  ___
-#  | 0xBC |     / __  / / __/ ___/ ___/ __ `/_  / / _ \
-#  +------+    / /_/ / / /_/ /__/ /  / /_/ / / /_/  __/
-#   ||  ||    /_____/_/\__/\___/_/   \__,_/ /___/\___/
 #
-#  Copyright (C) 2016 Bitcraze AB
+#  Luan Araújo Haickell
+#  Gabriel Pires Iduarte
 #
-#  Crazyflie Nano Quadcopter Client
+#  Código para enviar referência de rate e coletar os dados Y0 e U0 para realizar técnica FRIT
 #
-#  This program is free software; you can redistribute it and/or
-#  modify it under the terms of the GNU General Public License
-#  as published by the Free Software Foundation; either version 2
-#  of the License, or (at your option) any later version.
 #
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#  MA  02110-1301, USA.
-"""
-Código para enviar referencia para rate e coletar os dados
-"""
+
 import logging
 import time
 import math
@@ -37,7 +19,7 @@ from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 from cflib.crazyflie.syncLogger import SyncLogger
 
 T = 5
-pontos = [0, 20, -15, -20, 30, -25, 10]
+pontos = [0, 20, -15, -20, 45, -37, 10]
 
 # Only output errors from the logging framework
 logging.basicConfig(level=logging.ERROR)
@@ -56,15 +38,15 @@ if __name__ == '__main__':
 
         
         #Realimentação PID rate 
-        lg_stab.add_variable('gyro.yRaw', 'float')
-        lg_stab.add_variable('gyro.xRaw', 'float')
-        lg_stab.add_variable('gyro.zRaw', 'float')
+        #lg_stab.add_variable('gyro.yRaw', 'float')
+        #lg_stab.add_variable('gyro.xRaw', 'float')
+        #lg_stab.add_variable('gyro.zRaw', 'float')
+        lg_stab.add_variable('stateEstimateZ.rateRoll', 'int16_t')
         lg_stab.add_variable('stateEstimateZ.ratePitch', 'int16_t')
-        lg_stab.add_variable('stateEstimate.pitch', 'float')
         lg_stab.add_variable('stateEstimateZ.rateYaw', 'int16_t')
-        #lg_stab.add_variable('controller.r_roll', 'float')
-        #lg_stab.add_variable('controller.r_pitch', 'float')
-        #lg_stab.add_variable('stabilizer.pitch', 'float')
+        lg_stab.add_variable('controller.cmd_roll', 'float')
+        lg_stab.add_variable('controller.cmd_pitch', 'float')
+        lg_stab.add_variable('controller.cmd_yaw', 'float')
         i = 0
         
         #print("antes")
