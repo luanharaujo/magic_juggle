@@ -1,0 +1,34 @@
+#!/bin/zsh
+ip="192.168.1.135"
+
+
+if nc -z ${ip} 22 2>/dev/null; then
+    echo "$server ✓"
+else
+    echo "$server ✗"
+fi
+
+if nc -z ${ip} 22 2>/dev/null; then
+{
+   online=true
+}
+else
+{
+    ip="177.235.240.242"
+    nc -z ${ip} 22 2>/dev/null; then
+    {
+        $online = $true
+    }
+    else
+    {
+        $online = $false
+    }
+}
+
+echo ip is ${ip}
+
+# if($online)#atualizando arquivos apenas se o servidor SSH estiver online
+# {
+#     scp -i ~\`.ssh\id_rsa bitcraze@${ip}:/home/bitcraze/git/magic_juggle/dados/$(ssh  -i ~\`.ssh\id_rsa bitcraze@${ip} ('ls -t /home/bitcraze/git/magic_juggle/dados | head -1')) './dados'
+#     scp -i ~\`.ssh\id_rsa bitcraze@${ip}:/home/bitcraze/git/magic_juggle/dados/nome.txt ./dados
+# }
