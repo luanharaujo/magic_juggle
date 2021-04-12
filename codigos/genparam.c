@@ -10,8 +10,11 @@ int main(int argc, char const *argv[])
 	float valor;
 
 	fp_list = fopen("lista_param.txt","r");
-	fp_out = fopen("/home/bitcraze/git/magic_juggle/dados/ultimos_parametros.csv","w");
-	fp_in = fopen("/home/bitcraze/git/magic_juggle/dados/ultimos_parametros.txt","r");
+	fp_out = fopen("/home/pi/git/magic_juggle/dados/ultimos_parametros.csv","w");
+	fp_in = fopen("/home/pi/git/magic_juggle/dados/ultimos_parametros.txt","r");
+	
+	//printf("%p %p %p \n", fp_out, fp_in, fp_list);
+	//perror("fopen");
 
 	while(fscanf(fp_list,"%s\n", parametros) != EOF)
 	{

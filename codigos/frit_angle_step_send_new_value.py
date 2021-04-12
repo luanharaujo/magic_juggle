@@ -43,6 +43,8 @@ if __name__ == '__main__':
         lg_stab.add_variable('stabilizer.roll', 'float')
         lg_stab.add_variable('controller.pitchRate', 'float')
         lg_stab.add_variable('controller.rollRate', 'float')
+        lg_stab.add_variable('sys.canfly', 'uint8_t')
+        lg_stab.add_variable('sys.isTumbled', 'uint8_t')
         i = 0
         
         #print("antes")
